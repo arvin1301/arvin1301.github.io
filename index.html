@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arvind Sharma — Data Scientist, Machine Learning & AI</title>
+<meta name="description" content="Portfolio of Arvind Sharma — data scientist and ML/AI engineer specializing in computer vision, NLP, forecasting and multi-agent systems.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #11151c;
+    --panel: #161c26;
+    --line: #272f3d;
+    --text: #e8ecf1;
+    --muted: #8b95a5;
+    --accent: #f2a93b;
+    --accent-soft: rgba(242,169,59,0.14);
+    --maxw: 1120px;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+    *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; }
+  }
+
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a{ color: inherit; }
+  a:focus-visible, button:focus-visible{
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  h1,h2,h3{
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    font-weight: 600;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+
+  .wrap{
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .mono{ font-family: 'JetBrains Mono', monospace; }
+
+  /* ---------- header ---------- */
+  header.site{
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: rgba(17,21,28,0.86);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav{
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    padding: 1.1rem 2rem;
+    max-width: var(--maxw);
+    margin: 0 auto;
+  }
+  .nav .name{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+  .nav .name .initials{ color: var(--accent); }
+  .nav ul{
+    list-style:none;
+    display:flex;
+    gap: 1.75rem;
+    margin:0; padding:0;
+  }
+  .nav ul a{
+    text-decoration:none;
+    color: var(--muted);
+    font-size: 0.9rem;
+    transition: color .15s ease;
+  }
+  .nav ul a:hover{ color: var(--text); }
+  .nav-toggle{ display:none; }
+
+  @media (max-width: 720px){
+    .nav ul{
+      display:none;
+    }
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    padding: 5rem 0 4.5rem;
+    display:grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 3rem;
+    align-items:center;
+  }
+  .hero .role{
+    color: var(--accent);
+    font-size: 0.95rem;
+    margin: 0 0 1rem;
+  }
+  .hero h1{
+    font-size: clamp(2.1rem, 4.4vw, 3.4rem);
+    line-height: 1.08;
+    margin-bottom: 1.25rem;
+  }
+  .hero p.lede{
+    color: var(--muted);
+    font-size: 1.05rem;
+    max-width: 46ch;
+    margin: 0 0 2rem;
+  }
+  .cta-row{
+    display:flex;
+    gap: 0.9rem;
+    flex-wrap: wrap;
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.3rem;
+    border-radius: 3px;
+    font-size: 0.92rem;
+    text-decoration:none;
+    border: 1px solid var(--line);
+    transition: border-color .15s ease, background .15s ease;
+  }
+  .btn.primary{
+    background: var(--accent);
+    color: #191307;
+    border-color: var(--accent);
+    font-weight: 600;
+  }
+  .btn.primary:hover{ background: #ffbc55; }
+  .btn.ghost{
+    color: var(--text);
+    background: transparent;
+  }
+  .btn.ghost:hover{ border-color: var(--accent); }
+
+  /* hero detection graphic */
+  .scanframe{
+    position: relative;
+    aspect-ratio: 1/1;
+    max-width: 420px;
+    justify-self: center;
+  }
+  .scanframe svg{ width:100%; height:100%; display:block; }
+  .scan-line{
+    animation: sweep 2.6s ease-in-out 0.3s 1;
+  }
+  @keyframes sweep{
+    0%{ transform: translateY(-4px); opacity: 0; }
+    12%{ opacity: 1; }
+    88%{ opacity: 1; }
+    100%{ transform: translateY(388px); opacity: 0; }
+  }
+
+  @media (max-width: 880px){
+    .hero{ grid-template-columns: 1fr; padding-top: 3rem; }
+    .scanframe{ max-width: 320px; justify-self: start; }
+  }
+
+  /* ---------- section shells ---------- */
+  section.block{ padding: 4.5rem 0; border-top: 1px solid var(--line); }
+  .block-head{
+    display:flex;
+    align-items:baseline;
+    justify-content: space-between;
+    gap:1rem;
+    margin-bottom: 2.75rem;
+  }
+  .block-head h2{ font-size: 1.6rem; }
+  .block-head .count{ color: var(--muted); font-size: 0.9rem; }
+
+  /* ---------- projects ---------- */
+  .project-row{
+    display:grid;
+    grid-template-columns: 160px 1fr;
+    gap: 2.25rem;
+    padding: 2.25rem 0;
+    border-top: 1px solid var(--line);
+  }
+  .project-row:first-child{ border-top: none; padding-top: 0; }
+  .project-meta{ color: var(--muted); font-size: 0.85rem; }
+  .project-meta .period{ display:block; margin-bottom: 0.9rem; }
+  .tag-list{ display:flex; flex-wrap:wrap; gap: 0.4rem; }
+  .tag{
+    font-size: 0.72rem;
+    padding: 0.22rem 0.5rem;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .project-row h3{ font-size: 1.2rem; margin-bottom: 0.6rem; }
+  .project-row p{ color: var(--muted); max-width: 62ch; margin: 0 0 1.3rem; }
+  .stats{ display:flex; gap: 2rem; flex-wrap: wrap; }
+  .stat .num{
+    display:block;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--accent);
+    font-size: 1.15rem;
+  }
+  .stat .cap{ color: var(--muted); font-size: 0.78rem; }
+
+  @media (max-width: 700px){
+    .project-row{ grid-template-columns: 1fr; gap: 0.9rem; }
+    .project-meta .period{ margin-bottom: 0.5rem; }
+  }
+
+  /* ---------- skills ---------- */
+  .skill-grid{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+  .skill-group h3{
+    font-size: 0.85rem;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 0.9rem;
+  }
+  .skill-group ul{
+    list-style: none;
+    margin:0; padding:0;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+  .skill-group li{ padding: 0.28rem 0; border-top: 1px solid var(--line); }
+  .skill-group li:first-child{ border-top: none; }
+
+  @media (max-width: 880px){
+    .skill-grid{ grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 520px){
+    .skill-grid{ grid-template-columns: 1fr; }
+  }
+
+  /* ---------- experience timeline ---------- */
+  .timeline{ position: relative; padding-left: 1.6rem; }
+  .timeline::before{
+    content:"";
+    position:absolute;
+    left: 3px; top: 6px; bottom: 6px;
+    width: 1px;
+    background: var(--line);
+  }
+  .tl-item{ position: relative; padding-bottom: 2.4rem; }
+  .tl-item:last-child{ padding-bottom: 0; }
+  .tl-item::before{
+    content:"";
+    position:absolute;
+    left: -1.6rem;
+    top: 6px;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .tl-item .when{ color: var(--muted); font-size: 0.82rem; margin-bottom: 0.3rem; }
+  .tl-item h3{ font-size: 1.05rem; margin-bottom: 0.2rem; }
+  .tl-item .org{ color: var(--muted); font-size: 0.92rem; margin-bottom: 0.7rem; }
+  .tl-item p{ color: var(--muted); max-width: 62ch; margin: 0; }
+
+  /* ---------- education / certs ---------- */
+  .ed-grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+  .ed-grid h3{ font-size: 0.85rem; color: var(--accent); font-weight:500; margin-bottom: 1rem; }
+  .ed-item{ margin-bottom: 1.1rem; }
+  .ed-item .t{ font-size: 0.98rem; margin-bottom: 0.15rem; }
+  .ed-item .s{ color: var(--muted); font-size: 0.86rem; }
+
+  @media (max-width: 700px){
+    .ed-grid{ grid-template-columns: 1fr; }
+  }
+
+  /* ---------- footer ---------- */
+  footer{
+    border-top: 1px solid var(--line);
+    padding: 3rem 0 3.5rem;
+  }
+  .foot-row{
+    display:flex;
+    justify-content: space-between;
+    align-items:flex-end;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+  .foot-links{ display:flex; gap: 1.5rem; flex-wrap: wrap; }
+  .foot-links a{
+    text-decoration:none;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+  .foot-links a:hover{ color: var(--accent); }
+  footer .fine{ color: var(--muted); font-size: 0.8rem; }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <nav class="nav" aria-label="Primary">
+    <span class="name">P.H. <span class="initials">Arvind Sharma</span></span>
+    <ul>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <div>
+      <p class="role mono">Data Scientist — Machine Learning &amp; AI</p>
+      <h1>I build models that see, read, forecast, and decide.</h1>
+      <p class="lede">Hands-on with computer vision, NLP, time-series forecasting, and multi-agent LLM systems — from data preprocessing through to deployed, working tools.</p>
+      <div class="cta-row">
+        <a class="btn primary" href="#projects">View projects</a>
+        <a class="btn ghost" href="./resume.pdf" download>Download resume</a>
+        <a class="btn ghost" href="#contact">Contact</a>
+      </div>
+    </div>
+
+    <div class="scanframe" aria-hidden="true">
+      <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+        <title>Illustrative detection-frame graphic</title>
+        <defs>
+          <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#242c39" stroke-width="1"/>
+          </pattern>
+        </defs>
+        <rect width="400" height="400" fill="url(#grid)"/>
+
+        <rect x="40" y="60" width="130" height="90" rx="2" fill="none" stroke="#f2a93b" stroke-width="1.5" opacity="0.9"/>
+        <text x="40" y="52" fill="#f2a93b" font-family="JetBrains Mono, monospace" font-size="11">computer_vision · 0.97</text>
+
+        <rect x="210" y="150" width="150" height="110" rx="2" fill="none" stroke="#f2a93b" stroke-width="1.5" opacity="0.9"/>
+        <text x="210" y="142" fill="#f2a93b" font-family="JetBrains Mono, monospace" font-size="11">nlp / llm agents · 0.95</text>
+
+        <rect x="70" y="230" width="120" height="100" rx="2" fill="none" stroke="#f2a93b" stroke-width="1.5" opacity="0.9"/>
+        <text x="70" y="222" fill="#f2a93b" font-family="JetBrains Mono, monospace" font-size="11">forecasting · 0.93</text>
+
+        <line class="scan-line" x1="0" y1="0" x2="400" y2="0" stroke="#f2a93b" stroke-width="2" opacity="0.7"/>
+      </svg>
+    </div>
+  </section>
+
+  <section class="block" id="projects">
+    <div class="block-head">
+      <h2>Featured work</h2>
+      <span class="count mono">5 projects</span>
+    </div>
+
+    <div class="project-row">
+      <div class="project-meta">
+        <span class="period mono">Jul 2026</span>
+        <div class="tag-list">
+          <span class="tag">Multi-agent AI</span>
+          <span class="tag">Qdrant</span>
+        </div>
+      </div>
+      <div>
+        <h3>RecruitAI — end-to-end AI hiring assistant</h3>
+        <p>A hiring platform where separate agents handle resume screening, semantic candidate search, voice interviews, and proctoring, before a final agent produces a hiring recommendation. Built with FastAPI and Streamlit, using Groq Llama for reasoning, Whisper for speech, and Qdrant for candidate search.</p>
+        <div class="stats">
+          <div class="stat"><span class="num">5-stage</span><span class="cap">agent pipeline</span></div>
+          <div class="stat"><span class="num">Voice + video</span><span class="cap">interview automation</span></div>
+          <div class="stat"><span class="num">Vector</span><span class="cap">semantic search</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-row">
+      <div class="project-meta">
+        <span class="period mono">2025–26</span>
+        <div class="tag-list">
+          <span class="tag">LLM</span>
+          <span class="tag">Speech</span>
+          <span class="tag">CV</span>
+        </div>
+      </div>
+      <div>
+        <h3>ANAKIN — multimodal AI assistant</h3>
+        <p>A voice-driven assistant that pairs an LLM with speech-to-text, text-to-speech, and computer vision, so it can hold a conversation and carry out real-world tasks in real time. Runs on the Groq API for low-latency responses.</p>
+        <div class="stats">
+          <div class="stat"><span class="num">Real-time</span><span class="cap">voice interaction</span></div>
+          <div class="stat"><span class="num">4 modalities</span><span class="cap">LLM · STT · TTS · CV</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-row">
+      <div class="project-meta">
+        <span class="period mono">2025–26</span>
+        <div class="tag-list">
+          <span class="tag">CNN</span>
+          <span class="tag">Medical imaging</span>
+        </div>
+      </div>
+      <div>
+        <h3>Diagnostic & safety vision models</h3>
+        <p>Two CNN classifiers built for practical, high-stakes settings: a pneumonia detector trained on chest X-rays, and a traffic sign recognizer trained on the 43-class GTSRB dataset for driver-assistance use cases.</p>
+        <div class="stats">
+          <div class="stat"><span class="num">92–95%</span><span class="cap">pneumonia accuracy</span></div>
+          <div class="stat"><span class="num">95%</span><span class="cap">traffic sign accuracy</span></div>
+          <div class="stat"><span class="num">50K+</span><span class="cap">training images</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-row">
+      <div class="project-meta">
+        <span class="period mono">Aug–Sep 2023</span>
+        <div class="tag-list">
+          <span class="tag">YOLOv8x</span>
+          <span class="tag">Real-time tracking</span>
+        </div>
+      </div>
+      <div>
+        <h3>Bird detection & tracking</h3>
+        <p>Trained a YOLOv8x model to detect and age-classify birds across nearly 5,000 images, then built a real-time tracking pipeline with OpenCV and Flask that reduced manual monitoring workload.</p>
+        <div class="stats">
+          <div class="stat"><span class="num">0.96</span><span class="cap">precision / recall / F1</span></div>
+          <div class="stat"><span class="num">0.95</span><span class="cap">mAP@0.5</span></div>
+          <div class="stat"><span class="num">-15%</span><span class="cap">workload</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-row">
+      <div class="project-meta">
+        <span class="period mono">2024–26</span>
+        <div class="tag-list">
+          <span class="tag">ARIMA/SARIMA/LSTM</span>
+          <span class="tag">NLP</span>
+        </div>
+      </div>
+      <div>
+        <h3>Forecasting and text-emotion models</h3>
+        <p>Sales and energy forecasting models using ARIMA, SARIMA, and LSTM, alongside a 16-category text emotion classifier with grammar scoring, backed by a Streamlit and PostgreSQL review tool.</p>
+        <div class="stats">
+          <div class="stat"><span class="num">90–95%</span><span class="cap">forecast accuracy</span></div>
+          <div class="stat"><span class="num">45.12 / 67.35</span><span class="cap">BLEU / ROUGE-L</span></div>
+          <div class="stat"><span class="num">-50%</span><span class="cap">manual review time</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="skills">
+    <div class="block-head"><h2>Skills</h2></div>
+    <div class="skill-grid">
+      <div class="skill-group">
+        <h3>ML & AI</h3>
+        <ul>
+          <li>Scikit-learn, XGBoost</li>
+          <li>TensorFlow, PyTorch</li>
+          <li>Computer vision, deep learning</li>
+          <li>NLP, time-series (ARIMA, SARIMA, LSTM)</li>
+          <li>Generative AI, LLMs, AI agents</li>
+          <li>RAG, prompt engineering</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h3>Frameworks</h3>
+        <ul>
+          <li>LangChain, Hugging Face</li>
+          <li>Streamlit, FastAPI, Flask</li>
+          <li>OpenCV, YOLOv8, YOLOv10</li>
+          <li>Whisper</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h3>Data & cloud</h3>
+        <ul>
+          <li>PostgreSQL, MySQL</li>
+          <li>Qdrant, FAISS</li>
+          <li>Microsoft Azure</li>
+          <li>Docker, Git, GitHub</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h3>Analysis & tools</h3>
+        <ul>
+          <li>Pandas, NumPy, Matplotlib</li>
+          <li>Power BI, Tableau</li>
+          <li>Python, SQL</li>
+          <li>Jupyter, PyCharm, VS Code</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="experience">
+    <div class="block-head"><h2>Experience</h2></div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="when mono">Oct 2025 – Apr 2026</div>
+        <h3>Machine Learning Intern (AI/ML)</h3>
+        <div class="org">InLighnX Global Pvt. Ltd.</div>
+        <p>Ran full ML workflows from EDA through Streamlit deployment. Shipped forecasting, medical imaging, and computer vision models, plus ANAKIN, a multimodal voice assistant.</p>
+      </div>
+      <div class="tl-item">
+        <div class="when mono">May 2024 – Jun 2024</div>
+        <h3>Machine Learning Intern</h3>
+        <div class="org">Innodatatics — Text Emotion Analysis using LLM</div>
+        <p>Built an LLM-based emotion classifier across 16 categories with grammar scoring, and a Streamlit + PostgreSQL app that cut manual review time by half.</p>
+      </div>
+      <div class="tl-item">
+        <div class="when mono">Sep 2021 – Sep 2023</div>
+        <h3>Technical Support Consultant</h3>
+        <div class="org">Anjaneya Tech Software Solution</div>
+        <p>Supported client applications end to end, troubleshooting issues and communicating technical fixes clearly to non-technical users.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="education">
+    <div class="block-head"><h2>Education & certifications</h2></div>
+    <div class="ed-grid">
+      <div>
+        <h3>Education</h3>
+        <div class="ed-item">
+          <div class="t">Bachelor of Engineering (Mechanical)</div>
+          <div class="s">New Horizon College of Engineering, VTU · Aug 2014 – Jun 2021</div>
+        </div>
+      </div>
+      <div>
+        <h3>Certifications</h3>
+        <div class="ed-item">
+          <div class="t">Google AI Professional Certificate</div>
+          <div class="s">Jul 2026</div>
+        </div>
+        <div class="ed-item">
+          <div class="t">Data Science Certification, NASSCOM</div>
+          <div class="s">Oct 2023</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer id="contact">
+  <div class="wrap foot-row">
+    <div>
+      <h2 style="font-size:1.3rem; margin-bottom:0.5rem;">Let's work together.</h2>
+      <p class="fine">Open to data science and ML/AI roles.</p>
+    </div>
+    <div class="foot-links">
+      <a href="mailto:arvin1301ph@gmail.com">arvin1301ph@gmail.com</a>
+      <a href="tel:+919620587629">+91 96205 87629</a>
+      <a href="https://github.com/arvin1301" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://linkedin.com/in/arvindsharma-02a688294" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
