@@ -9,319 +9,139 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg: #11151c;
-    --panel: #161c26;
-    --line: #272f3d;
-    --text: #e8ecf1;
-    --muted: #8b95a5;
-    --accent: #f2a93b;
-    --accent-soft: rgba(242,169,59,0.14);
-    --maxw: 1120px;
-  }
+:root{--bg:#0d1118;--panel:#141a24;--line:#262e3c;--text:#e8ecf1;--muted:#8b95a5;--accent:#f2a93b;--accent2:#ff7a59;--maxw:1120px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}.rv{opacity:1!important;transform:none!important}}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+h1,h2,h3{font-family:'Space Grotesk','Inter',sans-serif;font-weight:600;margin:0;letter-spacing:-.01em}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 2rem}
+.mono{font-family:'JetBrains Mono',monospace}
+.grad{background:linear-gradient(100deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
 
-  *{ box-sizing: border-box; }
-  html{ scroll-behavior: smooth; }
+/* ambient background */
+.glow{position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(500px circle at var(--gx,70%) var(--gy,20%),rgba(242,169,59,.09),transparent 70%)}
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:56px 56px;opacity:.18;mask-image:radial-gradient(ellipse at 50% 0,#000 20%,transparent 75%);-webkit-mask-image:radial-gradient(ellipse at 50% 0,#000 20%,transparent 75%)}
+.orb{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none;z-index:0;animation:float 14s ease-in-out infinite alternate}
+.orb.a{width:340px;height:340px;background:rgba(242,169,59,.16);top:-60px;right:-40px}
+.orb.b{width:280px;height:280px;background:rgba(255,122,89,.10);top:280px;left:-120px;animation-delay:-6s}
+@keyframes float{to{transform:translate(-40px,50px) scale(1.15)}}
+main,header.site,footer{position:relative;z-index:1}
+#bar{position:fixed;top:0;left:0;height:2px;width:0;z-index:50;background:linear-gradient(90deg,var(--accent),var(--accent2))}
 
-  @media (prefers-reduced-motion: reduce){
-    html{ scroll-behavior: auto; }
-    *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; }
-  }
+/* header */
+header.site{position:sticky;top:0;z-index:20;background:rgba(13,17,24,.72);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 2rem;max-width:var(--maxw);margin:0 auto}
+.nav .name{font-family:'Space Grotesk',sans-serif;font-weight:600}
+.nav ul{list-style:none;display:flex;gap:1.75rem;margin:0;padding:0}
+.nav ul a{text-decoration:none;color:var(--muted);font-size:.9rem;position:relative;transition:color .15s}
+.nav ul a::after{content:"";position:absolute;left:0;bottom:-4px;height:1px;width:0;background:var(--accent);transition:width .25s}
+.nav ul a:hover{color:var(--text)}
+.nav ul a:hover::after{width:100%}
+@media (max-width:720px){.nav ul{display:none}}
 
-  body{
-    margin:0;
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Inter', system-ui, sans-serif;
-    font-size: 16px;
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-  }
+/* hero */
+.hero{padding:5.5rem 0 5rem;display:grid;grid-template-columns:1.1fr .9fr;gap:3rem;align-items:center;position:relative}
+.hero .role{color:var(--accent);font-size:.95rem;margin:0 0 1rem;min-height:1.6em}
+.caret{display:inline-block;width:8px;height:1em;background:var(--accent);vertical-align:-2px;margin-left:2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.hero h1{font-size:clamp(2.2rem,4.6vw,3.6rem);line-height:1.06;margin-bottom:1.25rem}
+.hero p.lede{color:var(--muted);font-size:1.05rem;max-width:46ch;margin:0 0 2rem}
+.cta-row{display:flex;gap:.9rem;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.3rem;border-radius:6px;font-size:.92rem;text-decoration:none;border:1px solid var(--line);transition:transform .2s,border-color .2s,box-shadow .2s,background .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn.primary{background:linear-gradient(100deg,var(--accent),#ffb84f);color:#191307;border-color:transparent;font-weight:600;box-shadow:0 6px 24px -8px rgba(242,169,59,.6)}
+.btn.primary:hover{box-shadow:0 10px 30px -6px rgba(242,169,59,.8)}
+.btn.ghost{background:rgba(255,255,255,.02)}
+.btn.ghost:hover{border-color:var(--accent);box-shadow:0 0 0 3px rgba(242,169,59,.1)}
+.scanframe{position:relative;aspect-ratio:1/1;max-width:420px;justify-self:center;border:1px solid var(--line);border-radius:12px;background:rgba(20,26,36,.6);box-shadow:0 30px 80px -30px rgba(242,169,59,.25);overflow:hidden}
+.scanframe svg{width:100%;height:100%;display:block}
+.box{animation:pulse 3s ease-in-out infinite}
+.box:nth-of-type(2){animation-delay:-1s}.box:nth-of-type(3){animation-delay:-2s}
+@keyframes pulse{50%{opacity:.45}}
+.scan-line{animation:sweep 4s ease-in-out 0.3s infinite}
+@keyframes sweep{0%{transform:translateY(-4px);opacity:0}12%{opacity:1}88%{opacity:1}100%{transform:translateY(388px);opacity:0}}
+@media (max-width:880px){.hero{grid-template-columns:1fr;padding-top:3rem}.scanframe{max-width:320px;justify-self:start}}
 
-  a{ color: inherit; }
-  a:focus-visible, button:focus-visible{
-    outline: 2px solid var(--accent);
-    outline-offset: 3px;
-  }
+/* sections */
+section.block{padding:4.5rem 0;border-top:1px solid var(--line)}
+.block-head{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;margin-bottom:2.5rem}
+.block-head h2{font-size:1.7rem}
+.block-head h2::before{content:"";display:inline-block;width:28px;height:3px;border-radius:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));margin-right:.8rem;vertical-align:middle}
+.block-head .count{color:var(--muted);font-size:.9rem}
 
-  h1,h2,h3{
-    font-family: 'Space Grotesk', 'Inter', sans-serif;
-    font-weight: 600;
-    margin: 0;
-    letter-spacing: -0.01em;
-  }
+/* reveal */
+.js .rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.js .rv.in{opacity:1;transform:none}
 
-  .wrap{
-    max-width: var(--maxw);
-    margin: 0 auto;
-    padding: 0 2rem;
-  }
+/* projects */
+.project-row{--mx:50%;--my:50%;position:relative;display:grid;grid-template-columns:160px 1fr;gap:2.25rem;padding:2rem;margin-bottom:1.25rem;border:1px solid var(--line);border-radius:12px;background:var(--panel);overflow:hidden;transition:border-color .25s,transform .25s}
+.project-row::before{content:"";position:absolute;inset:0;background:radial-gradient(380px circle at var(--mx) var(--my),rgba(242,169,59,.12),transparent 65%);opacity:0;transition:opacity .3s;pointer-events:none}
+.project-row:hover{border-color:rgba(242,169,59,.45);transform:translateY(-3px)}
+.project-row:hover::before{opacity:1}
+.project-row>*{position:relative}
+.project-meta{color:var(--muted);font-size:.85rem}
+.project-meta .period{display:block;margin-bottom:.9rem;color:var(--accent)}
+.tag-list{display:flex;flex-wrap:wrap;gap:.4rem}
+.tag{font-size:.72rem;padding:.22rem .55rem;border:1px solid var(--line);border-radius:99px;color:var(--muted);white-space:nowrap;background:rgba(255,255,255,.02)}
+.project-row h3{font-size:1.2rem;margin-bottom:.6rem}
+.project-row p{color:var(--muted);max-width:62ch;margin:0 0 1.3rem}
+.stats{display:flex;gap:2rem;flex-wrap:wrap}
+.stat .num{display:block;font-family:'JetBrains Mono',monospace;font-size:1.15rem;background:linear-gradient(100deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.stat .cap{color:var(--muted);font-size:.78rem}
+@media (max-width:700px){.project-row{grid-template-columns:1fr;gap:.9rem;padding:1.5rem}}
 
-  .mono{ font-family: 'JetBrains Mono', monospace; }
+/* skills */
+.skill-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem}
+.skill-group{padding:1.4rem;border:1px solid var(--line);border-radius:12px;background:var(--panel);transition:border-color .25s,transform .25s}
+.skill-group:hover{border-color:rgba(242,169,59,.45);transform:translateY(-3px)}
+.skill-group h3{font-size:.85rem;color:var(--accent);font-weight:500;margin-bottom:.9rem}
+.skill-group ul{list-style:none;margin:0;padding:0;color:var(--muted);font-size:.9rem}
+.skill-group li{padding:.3rem 0;border-top:1px solid var(--line);transition:color .15s,padding-left .2s}
+.skill-group li:first-child{border-top:none}
+.skill-group li:hover{color:var(--text);padding-left:.4rem}
+@media (max-width:880px){.skill-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.skill-grid{grid-template-columns:1fr}}
 
-  /* ---------- header ---------- */
-  header.site{
-    position: sticky;
-    top: 0;
-    z-index: 20;
-    background: rgba(17,21,28,0.86);
-    backdrop-filter: blur(8px);
-    border-bottom: 1px solid var(--line);
-  }
-  .nav{
-    display:flex;
-    align-items:center;
-    justify-content: space-between;
-    padding: 1.1rem 2rem;
-    max-width: var(--maxw);
-    margin: 0 auto;
-  }
-  .nav .name{
-    font-family:'Space Grotesk', sans-serif;
-    font-weight: 600;
-    font-size: 1rem;
-  }
-  .nav .name .initials{ color: var(--accent); }
-  .nav ul{
-    list-style:none;
-    display:flex;
-    gap: 1.75rem;
-    margin:0; padding:0;
-  }
-  .nav ul a{
-    text-decoration:none;
-    color: var(--muted);
-    font-size: 0.9rem;
-    transition: color .15s ease;
-  }
-  .nav ul a:hover{ color: var(--text); }
-  .nav-toggle{ display:none; }
+/* timeline */
+.timeline{position:relative;padding-left:1.8rem}
+.timeline::before{content:"";position:absolute;left:3px;top:6px;bottom:6px;width:1px;background:linear-gradient(var(--accent),var(--line))}
+.tl-item{position:relative;padding-bottom:2.4rem}
+.tl-item:last-child{padding-bottom:0}
+.tl-item::before{content:"";position:absolute;left:-1.8rem;top:6px;width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 0 rgba(242,169,59,.5);animation:ring 2.6s ease-out infinite}
+@keyframes ring{to{box-shadow:0 0 0 10px rgba(242,169,59,0)}}
+.tl-item .when{color:var(--muted);font-size:.82rem;margin-bottom:.3rem}
+.tl-item h3{font-size:1.05rem;margin-bottom:.2rem}
+.tl-item .org{color:var(--muted);font-size:.92rem;margin-bottom:.7rem}
+.tl-item p{color:var(--muted);max-width:62ch;margin:0}
 
-  @media (max-width: 720px){
-    .nav ul{
-      display:none;
-    }
-  }
+/* education */
+.ed-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+.ed-grid>div{padding:1.6rem;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
+.ed-grid h3{font-size:.85rem;color:var(--accent);font-weight:500;margin-bottom:1rem}
+.ed-item{margin-bottom:1.1rem}.ed-item:last-child{margin-bottom:0}
+.ed-item .t{font-size:.98rem;margin-bottom:.15rem}
+.ed-item .s{color:var(--muted);font-size:.86rem}
+@media (max-width:700px){.ed-grid{grid-template-columns:1fr}}
 
-  /* ---------- hero ---------- */
-  .hero{
-    padding: 5rem 0 4.5rem;
-    display:grid;
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: 3rem;
-    align-items:center;
-  }
-  .hero .role{
-    color: var(--accent);
-    font-size: 0.95rem;
-    margin: 0 0 1rem;
-  }
-  .hero h1{
-    font-size: clamp(2.1rem, 4.4vw, 3.4rem);
-    line-height: 1.08;
-    margin-bottom: 1.25rem;
-  }
-  .hero p.lede{
-    color: var(--muted);
-    font-size: 1.05rem;
-    max-width: 46ch;
-    margin: 0 0 2rem;
-  }
-  .cta-row{
-    display:flex;
-    gap: 0.9rem;
-    flex-wrap: wrap;
-  }
-  .btn{
-    display:inline-flex;
-    align-items:center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.3rem;
-    border-radius: 3px;
-    font-size: 0.92rem;
-    text-decoration:none;
-    border: 1px solid var(--line);
-    transition: border-color .15s ease, background .15s ease;
-  }
-  .btn.primary{
-    background: var(--accent);
-    color: #191307;
-    border-color: var(--accent);
-    font-weight: 600;
-  }
-  .btn.primary:hover{ background: #ffbc55; }
-  .btn.ghost{
-    color: var(--text);
-    background: transparent;
-  }
-  .btn.ghost:hover{ border-color: var(--accent); }
-
-  /* hero detection graphic */
-  .scanframe{
-    position: relative;
-    aspect-ratio: 1/1;
-    max-width: 420px;
-    justify-self: center;
-  }
-  .scanframe svg{ width:100%; height:100%; display:block; }
-  .scan-line{
-    animation: sweep 2.6s ease-in-out 0.3s 1;
-  }
-  @keyframes sweep{
-    0%{ transform: translateY(-4px); opacity: 0; }
-    12%{ opacity: 1; }
-    88%{ opacity: 1; }
-    100%{ transform: translateY(388px); opacity: 0; }
-  }
-
-  @media (max-width: 880px){
-    .hero{ grid-template-columns: 1fr; padding-top: 3rem; }
-    .scanframe{ max-width: 320px; justify-self: start; }
-  }
-
-  /* ---------- section shells ---------- */
-  section.block{ padding: 4.5rem 0; border-top: 1px solid var(--line); }
-  .block-head{
-    display:flex;
-    align-items:baseline;
-    justify-content: space-between;
-    gap:1rem;
-    margin-bottom: 2.75rem;
-  }
-  .block-head h2{ font-size: 1.6rem; }
-  .block-head .count{ color: var(--muted); font-size: 0.9rem; }
-
-  /* ---------- projects ---------- */
-  .project-row{
-    display:grid;
-    grid-template-columns: 160px 1fr;
-    gap: 2.25rem;
-    padding: 2.25rem 0;
-    border-top: 1px solid var(--line);
-  }
-  .project-row:first-child{ border-top: none; padding-top: 0; }
-  .project-meta{ color: var(--muted); font-size: 0.85rem; }
-  .project-meta .period{ display:block; margin-bottom: 0.9rem; }
-  .tag-list{ display:flex; flex-wrap:wrap; gap: 0.4rem; }
-  .tag{
-    font-size: 0.72rem;
-    padding: 0.22rem 0.5rem;
-    border: 1px solid var(--line);
-    border-radius: 2px;
-    color: var(--muted);
-    white-space: nowrap;
-  }
-  .project-row h3{ font-size: 1.2rem; margin-bottom: 0.6rem; }
-  .project-row p{ color: var(--muted); max-width: 62ch; margin: 0 0 1.3rem; }
-  .stats{ display:flex; gap: 2rem; flex-wrap: wrap; }
-  .stat .num{
-    display:block;
-    font-family: 'JetBrains Mono', monospace;
-    color: var(--accent);
-    font-size: 1.15rem;
-  }
-  .stat .cap{ color: var(--muted); font-size: 0.78rem; }
-
-  @media (max-width: 700px){
-    .project-row{ grid-template-columns: 1fr; gap: 0.9rem; }
-    .project-meta .period{ margin-bottom: 0.5rem; }
-  }
-
-  /* ---------- skills ---------- */
-  .skill-grid{
-    display:grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2rem;
-  }
-  .skill-group h3{
-    font-size: 0.85rem;
-    color: var(--accent);
-    font-weight: 500;
-    margin-bottom: 0.9rem;
-  }
-  .skill-group ul{
-    list-style: none;
-    margin:0; padding:0;
-    color: var(--muted);
-    font-size: 0.9rem;
-  }
-  .skill-group li{ padding: 0.28rem 0; border-top: 1px solid var(--line); }
-  .skill-group li:first-child{ border-top: none; }
-
-  @media (max-width: 880px){
-    .skill-grid{ grid-template-columns: repeat(2, 1fr); }
-  }
-  @media (max-width: 520px){
-    .skill-grid{ grid-template-columns: 1fr; }
-  }
-
-  /* ---------- experience timeline ---------- */
-  .timeline{ position: relative; padding-left: 1.6rem; }
-  .timeline::before{
-    content:"";
-    position:absolute;
-    left: 3px; top: 6px; bottom: 6px;
-    width: 1px;
-    background: var(--line);
-  }
-  .tl-item{ position: relative; padding-bottom: 2.4rem; }
-  .tl-item:last-child{ padding-bottom: 0; }
-  .tl-item::before{
-    content:"";
-    position:absolute;
-    left: -1.6rem;
-    top: 6px;
-    width: 7px; height: 7px;
-    border-radius: 50%;
-    background: var(--accent);
-  }
-  .tl-item .when{ color: var(--muted); font-size: 0.82rem; margin-bottom: 0.3rem; }
-  .tl-item h3{ font-size: 1.05rem; margin-bottom: 0.2rem; }
-  .tl-item .org{ color: var(--muted); font-size: 0.92rem; margin-bottom: 0.7rem; }
-  .tl-item p{ color: var(--muted); max-width: 62ch; margin: 0; }
-
-  /* ---------- education / certs ---------- */
-  .ed-grid{
-    display:grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-  }
-  .ed-grid h3{ font-size: 0.85rem; color: var(--accent); font-weight:500; margin-bottom: 1rem; }
-  .ed-item{ margin-bottom: 1.1rem; }
-  .ed-item .t{ font-size: 0.98rem; margin-bottom: 0.15rem; }
-  .ed-item .s{ color: var(--muted); font-size: 0.86rem; }
-
-  @media (max-width: 700px){
-    .ed-grid{ grid-template-columns: 1fr; }
-  }
-
-  /* ---------- footer ---------- */
-  footer{
-    border-top: 1px solid var(--line);
-    padding: 3rem 0 3.5rem;
-  }
-  .foot-row{
-    display:flex;
-    justify-content: space-between;
-    align-items:flex-end;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-  }
-  .foot-links{ display:flex; gap: 1.5rem; flex-wrap: wrap; }
-  .foot-links a{
-    text-decoration:none;
-    color: var(--muted);
-    font-size: 0.9rem;
-  }
-  .foot-links a:hover{ color: var(--accent); }
-  footer .fine{ color: var(--muted); font-size: 0.8rem; }
+/* footer */
+footer{border-top:1px solid var(--line);padding:3rem 0 3.5rem;background:linear-gradient(transparent,rgba(242,169,59,.05))}
+.foot-row{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1.5rem}
+.foot-links{display:flex;gap:1.5rem;flex-wrap:wrap}
+.foot-links a{text-decoration:none;color:var(--muted);font-size:.9rem;transition:color .15s}
+.foot-links a:hover{color:var(--accent)}
+footer .fine{color:var(--muted);font-size:.8rem}
 </style>
 </head>
 <body>
+<div id="bar"></div>
+<div class="glow" aria-hidden="true"></div>
 
 <header class="site">
   <nav class="nav" aria-label="Primary">
-    <span class="name">P.H. <span class="initials">Arvind Sharma</span></span>
+    <span class="name">PH Arvind Sharma</span>
     <ul>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#skills">Skills</a></li>
@@ -334,9 +154,10 @@
 <main class="wrap">
 
   <section class="hero">
-    <div>
-      <p class="role mono">Data Scientist — Machine Learning &amp; AI</p>
-      <h1>I build models that see, read, forecast, and decide.</h1>
+    <div class="orb a" aria-hidden="true"></div><div class="orb b" aria-hidden="true"></div>
+    <div style="position:relative;z-index:1">
+      <p class="role mono"><span id="pre">Data Scientist — </span><span id="typed">Machine Learning &amp; AI</span><span class="caret" aria-hidden="true"></span></p>
+      <h1>I build models that <span class="grad">see, read, forecast,</span> and decide.</h1>
       <p class="lede">Hands-on with computer vision, NLP, time-series forecasting, and multi-agent LLM systems — from data preprocessing through to deployed, working tools.</p>
       <div class="cta-row">
         <a class="btn primary" href="#projects">View projects</a>
@@ -350,47 +171,60 @@
       <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
         <title>Illustrative detection-frame graphic</title>
         <defs>
-          <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#242c39" stroke-width="1"/>
-          </pattern>
+          <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#242c39" stroke-width="1"/></pattern>
+          <linearGradient id="sg" x1="0" x2="1"><stop offset="0" stop-color="#f2a93b" stop-opacity="0"/><stop offset=".5" stop-color="#f2a93b"/><stop offset="1" stop-color="#f2a93b" stop-opacity="0"/></linearGradient>
         </defs>
         <rect width="400" height="400" fill="url(#grid)"/>
-
-        <rect x="40" y="60" width="130" height="90" rx="2" fill="none" stroke="#f2a93b" stroke-width="1.5" opacity="0.9"/>
-        <text x="40" y="52" fill="#f2a93b" font-family="JetBrains Mono, monospace" font-size="11">computer_vision · 0.97</text>
-
-        <rect x="210" y="150" width="150" height="110" rx="2" fill="none" stroke="#f2a93b" stroke-width="1.5" opacity="0.9"/>
-        <text x="210" y="142" fill="#f2a93b" font-family="JetBrains Mono, monospace" font-size="11">nlp / llm agents · 0.95</text>
-
-        <rect x="70" y="230" width="120" height="100" rx="2" fill="none" stroke="#f2a93b" stroke-width="1.5" opacity="0.9"/>
-        <text x="70" y="222" fill="#f2a93b" font-family="JetBrains Mono, monospace" font-size="11">forecasting · 0.93</text>
-
-        <line class="scan-line" x1="0" y1="0" x2="400" y2="0" stroke="#f2a93b" stroke-width="2" opacity="0.7"/>
+        <g class="box"><rect x="40" y="60" width="130" height="90" rx="3" fill="rgba(242,169,59,.07)" stroke="#f2a93b" stroke-width="1.5"/><text x="40" y="52" fill="#f2a93b" font-family="JetBrains Mono, monospace" font-size="11">computer_vision · 0.97</text></g>
+        <g class="box"><rect x="210" y="150" width="150" height="110" rx="3" fill="rgba(242,169,59,.07)" stroke="#f2a93b" stroke-width="1.5"/><text x="210" y="142" fill="#f2a93b" font-family="JetBrains Mono, monospace" font-size="11">nlp / llm agents · 0.95</text></g>
+        <g class="box"><rect x="70" y="230" width="120" height="100" rx="3" fill="rgba(242,169,59,.07)" stroke="#f2a93b" stroke-width="1.5"/><text x="70" y="222" fill="#f2a93b" font-family="JetBrains Mono, monospace" font-size="11">forecasting · 0.93</text></g>
+        <rect class="scan-line" x="0" y="0" width="400" height="3" fill="url(#sg)"/>
       </svg>
     </div>
   </section>
 
   <section class="block" id="projects">
-    <div class="block-head">
+    <div class="block-head rv">
       <h2>Featured work</h2>
-      <span class="count mono">5 projects</span>
+      <span class="count mono">12 projects</span>
     </div>
 
-    <div class="project-row">
+    <!-- 1. Omni Support AI -->
+    <div class="project-row rv">
+      <div class="project-meta">
+        <span class="period mono">Sept 2026</span>
+        <div class="tag-list"><span class="tag">RAG</span><span class="tag">Multi-agent</span><span class="tag">Qdrant</span><span class="tag">Voice</span></div>
+      </div>
+      <div>
+        <h3>Omni Support AI — Multimodal customer support platform</h3>
+        <p>Multi-agent support system combining intelligent request routing, RAG, vector search, LLM reasoning, and voice/text interaction. The architecture routes user intent to specialized agents and grounds responses against a searchable knowledge base using embeddings and vector retrieval. Agents include <strong>RAG agent</strong> for grounded knowledge retrieval, <strong>Research agent</strong> for exploratory information gathering, <strong>Data analysis agent</strong> for structured data queries, <strong>Database agent</strong> for direct data-store operations, and <strong>Voice agents</strong> for speech-based interaction.</p>
+        <div class="stats">
+          <div class="stat"><span class="num">RAG</span><span class="cap">knowledge retrieval</span></div>
+          <div class="stat"><span class="num">Qdrant</span><span class="cap">vector database</span></div>
+          <div class="stat"><span class="num">Groq</span><span class="cap">LLM inference</span></div>
+          <div class="stat"><span class="num">Voice agents</span><span class="cap">speech interaction</span></div>
+          <div class="stat"><span class="num">Research agent</span><span class="cap">information gathering</span></div>
+          <div class="stat"><span class="num">Data &amp; DB agents</span><span class="cap">analysis &amp; database ops</span></div>
+        </div>
+        <div class="cta-row" style="margin-top:1.3rem;">
+          <a class="btn ghost" href="https://github.com/arvin1301/OmniSupport-AI-Multi-Agent-AI-Platform" target="_blank" rel="noopener">View Omni Support AI on GitHub ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. RecruitAI -->
+    <div class="project-row rv">
       <div class="project-meta">
         <span class="period mono">Jul 2026</span>
-        <div class="tag-list">
-          <span class="tag">Multi-agent AI</span>
-          <span class="tag">Qdrant</span>
-        </div>
+        <div class="tag-list"><span class="tag">Multi-agent AI</span><span class="tag">Qdrant</span><span class="tag">Whisper</span></div>
       </div>
       <div>
         <h3>RecruitAI — end-to-end AI hiring assistant</h3>
-        <p>A hiring platform where separate agents handle resume screening, semantic candidate search, voice interviews, and proctoring, before a final agent produces a hiring recommendation. Built with FastAPI and Streamlit, using Groq Llama for reasoning, Whisper for speech, and Qdrant for candidate search.</p>
+        <p>Agentic hiring platform with resume parsing and screening, semantic candidate search, AI text interviews, voice interviews, proctoring, reporting, and recruiter workflows. Built with FastAPI and Streamlit, using Groq Llama for reasoning, Whisper for speech processing, and Qdrant for vector-based candidate retrieval.</p>
         <div class="stats">
           <div class="stat"><span class="num">5-stage</span><span class="cap">agent pipeline</span></div>
           <div class="stat"><span class="num">Voice + video</span><span class="cap">interview automation</span></div>
-          <div class="stat"><span class="num">Vector</span><span class="cap">semantic search</span></div>
+          <div class="stat"><span class="num">Vector</span><span class="cap">semantic candidate search</span></div>
         </div>
         <div class="cta-row" style="margin-top:1.3rem;">
           <a class="btn ghost" href="https://github.com/arvin1301/RecruitAI-End-to-End-AI-Hiring-Assistant" target="_blank" rel="noopener">View RecruitAI on GitHub ↗</a>
@@ -398,88 +232,208 @@
       </div>
     </div>
 
-    <div class="project-row">
+    <!-- 3. Text Emotion Analysis using LLM (date updated to Intern) -->
+    <div class="project-row rv">
       <div class="project-meta">
-        <span class="period mono">2025–26</span>
-        <div class="tag-list">
-          <span class="tag">LLM</span>
-          <span class="tag">Speech</span>
-          <span class="tag">CV</span>
-        </div>
+        <span class="period mono">Oct 2025 – Apr 2026 Intern</span>
+        <div class="tag-list"><span class="tag">LLM</span><span class="tag">Emotion classification</span><span class="tag">Streamlit</span><span class="tag">PostgreSQL</span></div>
       </div>
       <div>
-        <h3>ANAKIN — multimodal AI assistant</h3>
-        <p>A voice-driven assistant that pairs an LLM with speech-to-text, text-to-speech, and computer vision, so it can hold a conversation and carry out real-world tasks in real time. Runs on the Groq API for low-latency responses.</p>
+        <h3>Text Emotion Analysis using LLM</h3>
+        <p>Analyzed text data and developed an emotion classification system supporting 16 emotion categories, including grammar scoring and filler-word detection, achieving 45.12 BLEU and 67.35 ROUGE-L. Developed a Streamlit and PostgreSQL application for text data processing and analysis, reducing manual review by 50% and improving team efficiency by 20%.</p>
         <div class="stats">
-          <div class="stat"><span class="num">Real-time</span><span class="cap">voice interaction</span></div>
+          <div class="stat"><span class="num">16</span><span class="cap">emotion categories</span></div>
+          <div class="stat"><span class="num">45.12</span><span class="cap">BLEU score</span></div>
+          <div class="stat"><span class="num">67.35</span><span class="cap">ROUGE-L score</span></div>
+          <div class="stat"><span class="num">50%</span><span class="cap">reduction in manual review</span></div>
+          <div class="stat"><span class="num">20%</span><span class="cap">team efficiency gain</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. ANAKIN -->
+    <div class="project-row rv">
+      <div class="project-meta">
+        <span class="period mono">Oct 2025 – Apr 2026 Intern</span>
+        <div class="tag-list"><span class="tag">LLM</span><span class="tag">STT/TTS</span><span class="tag">OpenCV</span></div>
+      </div>
+      <div>
+        <h3>ANAKIN — real-time AI voice assistant</h3>
+        <p>Multimodal voice assistant combining Groq Llama-3.1-8B-Instant, Google Speech-to-Text, offline pyttsx3 text-to-speech, OpenCV camera capture, and external APIs. Includes intent-based command routing for weather, Wikipedia, Google search, notes, reminders, time/date, and general LLM questions, with a Streamlit UI.</p>
+        <div class="stats">
           <div class="stat"><span class="num">4 modalities</span><span class="cap">LLM · STT · TTS · CV</span></div>
+          <div class="stat"><span class="num">Real-time</span><span class="cap">voice interaction</span></div>
+          <div class="stat"><span class="num">Streamlit</span><span class="cap">web interface</span></div>
+        </div>
+        <div class="cta-row" style="margin-top:1.3rem;">
+          <a class="btn ghost" href="https://github.com/arvin1301/Anakin_AI_Voice_Assistant-" target="_blank" rel="noopener">View ANAKIN on GitHub ↗</a>
         </div>
       </div>
     </div>
 
-    <div class="project-row">
+    <!-- 5. Traffic Sign Recognition -->
+    <div class="project-row rv">
       <div class="project-meta">
-        <span class="period mono">2025–26</span>
-        <div class="tag-list">
-          <span class="tag">CNN</span>
-          <span class="tag">Medical imaging</span>
-        </div>
+        <span class="period mono">Oct 2025 – Apr 2026 Intern</span>
+        <div class="tag-list"><span class="tag">CNN</span><span class="tag">GTSRB</span><span class="tag">Streamlit</span></div>
       </div>
       <div>
-        <h3>Diagnostic & safety vision models</h3>
-        <p>Two CNN classifiers built for practical, high-stakes settings: a pneumonia detector trained on chest X-rays, and a traffic sign recognizer trained on the 43-class GTSRB dataset for driver-assistance use cases.</p>
+        <h3>Traffic Sign Recognition using CNN</h3>
+        <p>Multi-class computer vision classifier trained on the German Traffic Sign Recognition Benchmark (GTSRB). The pipeline handles RGB image preprocessing and classification across 43 traffic-sign classes, with a CNN using 32/64-filter convolution blocks, max pooling, a 256-neuron dense layer, 0.5 dropout, and a 43-class softmax output.</p>
         <div class="stats">
-          <div class="stat"><span class="num">92–95%</span><span class="cap">pneumonia accuracy</span></div>
-          <div class="stat"><span class="num">95%</span><span class="cap">traffic sign accuracy</span></div>
-          <div class="stat"><span class="num">50K+</span><span class="cap">training images</span></div>
+          <div class="stat"><span class="num">43</span><span class="cap">GTSRB classes</span></div>
+          <div class="stat"><span class="num">32×32</span><span class="cap">RGB input images</span></div>
+          <div class="stat"><span class="num">CNN</span><span class="cap">deep image classifier</span></div>
+        </div>
+        <div class="cta-row" style="margin-top:1.3rem;">
+          <a class="btn ghost" href="https://github.com/arvin1301/Traffic_sign_detection" target="_blank" rel="noopener">View Traffic Sign project on GitHub ↗</a>
         </div>
       </div>
     </div>
 
-    <div class="project-row">
+    <!-- 6. Pneumonia Detection -->
+    <div class="project-row rv">
       <div class="project-meta">
-        <span class="period mono">Aug–Sep 2023</span>
-        <div class="tag-list">
-          <span class="tag">YOLOv8x</span>
-          <span class="tag">Real-time tracking</span>
-        </div>
+        <span class="period mono">Oct 2025 – Apr 2026 Intern</span>
+        <div class="tag-list"><span class="tag">CNN</span><span class="tag">Medical imaging</span><span class="tag">Streamlit</span></div>
       </div>
       <div>
-        <h3>Bird detection & tracking</h3>
-        <p>Trained a YOLOv8x model to detect and age-classify birds across nearly 5,000 images, then built a real-time tracking pipeline with OpenCV and Flask that reduced manual monitoring workload.</p>
+        <h3>Pneumonia Detection using Deep Learning</h3>
+        <p>CNN-based binary classifier for Normal versus Pneumonia chest X-ray images. The workflow includes class-distribution analysis, image visualization, preprocessing, augmentation, convolution + ReLU blocks, max pooling, dropout, and sigmoid classification, followed by Streamlit deployment for image-based inference.</p>
         <div class="stats">
+          <div class="stat"><span class="num">Binary</span><span class="cap">Normal / Pneumonia</span></div>
+          <div class="stat"><span class="num">CNN</span><span class="cap">X-ray feature extraction</span></div>
+          <div class="stat"><span class="num">Streamlit</span><span class="cap">interactive inference</span></div>
+        </div>
+        <div class="cta-row" style="margin-top:1.3rem;">
+          <a class="btn ghost" href="https://github.com/arvin1301/Pneumonia-Detection-using-Deep-learning-CNN-" target="_blank" rel="noopener">View Pneumonia project on GitHub ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. Bird Detection (date updated to Intern) -->
+    <div class="project-row rv">
+      <div class="project-meta">
+        <span class="period mono">Oct 2025 – Apr 2026 Intern</span>
+        <div class="tag-list"><span class="tag">YOLOv8x</span><span class="tag">OpenCV</span><span class="tag">Flask</span></div>
+      </div>
+      <div>
+        <h3>Bird Detection &amp; Tracking</h3>
+        <p>Computer vision pipeline trained on 4,981 annotated chick images using YOLOv8x for detection and age classification, with OpenCV/Flask integration for real-time monitoring. The project achieved strong detection performance while reducing manual monitoring workload.</p>
+        <div class="stats">
+          <div class="stat"><span class="num">4,981</span><span class="cap">annotated images</span></div>
           <div class="stat"><span class="num">0.96</span><span class="cap">precision / recall / F1</span></div>
           <div class="stat"><span class="num">0.95</span><span class="cap">mAP@0.5</span></div>
-          <div class="stat"><span class="num">-15%</span><span class="cap">workload</span></div>
         </div>
       </div>
     </div>
 
-    <div class="project-row">
+    <!-- 8. Energy Consumption Forecasting -->
+    <div class="project-row rv">
       <div class="project-meta">
-        <span class="period mono">2024–26</span>
-        <div class="tag-list">
-          <span class="tag">ARIMA/SARIMA/LSTM</span>
-          <span class="tag">NLP</span>
-        </div>
+        <span class="period mono">Oct 2025 – Apr 2026 Intern</span>
+        <div class="tag-list"><span class="tag">ARIMA</span><span class="tag">SARIMA</span><span class="tag">LSTM</span></div>
       </div>
       <div>
-        <h3>Forecasting and text-emotion models</h3>
-        <p>Sales and energy forecasting models using ARIMA, SARIMA, and LSTM, alongside a 16-category text emotion classifier with grammar scoring, backed by a Streamlit and PostgreSQL review tool.</p>
+        <h3>Energy Consumption Forecasting</h3>
+        <p>Time-series forecasting system for hourly/daily energy consumption using EDA, rolling statistics, stationarity testing with ADF, correlation analysis, and comparative ARIMA, SARIMA, and LSTM modelling. The Streamlit application visualizes consumption trends, generates forecasts, and compares model outputs.</p>
         <div class="stats">
-          <div class="stat"><span class="num">90–95%</span><span class="cap">forecast accuracy</span></div>
-          <div class="stat"><span class="num">45.12 / 67.35</span><span class="cap">BLEU / ROUGE-L</span></div>
-          <div class="stat"><span class="num">-50%</span><span class="cap">manual review time</span></div>
+          <div class="stat"><span class="num">3 models</span><span class="cap">ARIMA · SARIMA · LSTM</span></div>
+          <div class="stat"><span class="num">ADF</span><span class="cap">stationarity analysis</span></div>
+          <div class="stat"><span class="num">Streamlit</span><span class="cap">forecast dashboard</span></div>
+        </div>
+        <div class="cta-row" style="margin-top:1.3rem;">
+          <a class="btn ghost" href="https://github.com/arvin1301/Energy_consumption" target="_blank" rel="noopener">View Energy project on GitHub ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9. Walmart Sales Forecasting -->
+    <div class="project-row rv">
+      <div class="project-meta">
+        <span class="period mono">Oct 2025 – Apr 2026 Intern</span>
+        <div class="tag-list"><span class="tag">LSTM</span><span class="tag">SARIMA</span><span class="tag">Forecasting</span></div>
+      </div>
+      <div>
+        <h3>Walmart Sales Forecasting</h3>
+        <p>Business time-series forecasting project analysing store-level weekly sales with trend, seasonality, rolling statistics, decomposition, and stationarity testing. ARIMA, SARIMA, and LSTM models are trained and compared using historical sales, temperature, fuel price, CPI, and unemployment features, with an interactive Streamlit forecasting interface.</p>
+        <div class="stats">
+          <div class="stat"><span class="num">Store-wise</span><span class="cap">weekly sales forecasting</span></div>
+          <div class="stat"><span class="num">ARIMA/SARIMA</span><span class="cap">statistical forecasting</span></div>
+          <div class="stat"><span class="num">LSTM</span><span class="cap">sequence modelling</span></div>
+        </div>
+        <div class="cta-row" style="margin-top:1.3rem;">
+          <a class="btn ghost" href="https://github.com/arvin1301/Wallmart_Sales_forecast" target="_blank" rel="noopener">View Walmart project on GitHub ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10. Fake News -->
+    <div class="project-row rv">
+      <div class="project-meta">
+        <span class="period mono">2024–25</span>
+        <div class="tag-list"><span class="tag">LSTM</span><span class="tag">NLP</span><span class="tag">Streamlit</span></div>
+      </div>
+      <div>
+        <h3>Fake News Detection using TensorFlow LSTM</h3>
+        <p>Text-classification pipeline using Keras tokenization and padded sequences to classify news as FAKE or REAL. The LSTM architecture uses a 128-dimensional embedding, recurrent sequence modelling, dense nonlinear layers, and sigmoid output, with an interactive Streamlit inference application.</p>
+        <div class="stats">
+          <div class="stat"><span class="num">98.1%</span><span class="cap">reported accuracy</span></div>
+          <div class="stat"><span class="num">96.8%</span><span class="cap">reported F1-score</span></div>
+          <div class="stat"><span class="num">10,000</span><span class="cap">tokenizer vocabulary</span></div>
+        </div>
+        <div class="cta-row" style="margin-top:1.3rem;">
+          <a class="btn ghost" href="https://github.com/arvin1301/Fake-News-Detection-using-TensorFlow-LSTM" target="_blank" rel="noopener">View Fake News project on GitHub ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 11. Heart Disease Prediction -->
+    <div class="project-row rv">
+      <div class="project-meta">
+        <span class="period mono">Oct 2025 – Apr 2026 Intern</span>
+        <div class="tag-list"><span class="tag">Logistic Regression</span><span class="tag">EDA</span><span class="tag">Streamlit</span></div>
+      </div>
+      <div>
+        <h3>Heart Disease Prediction</h3>
+        <p>Binary classification workflow using the Framingham Heart Study dataset. Includes missing-value handling, categorical encoding, feature scaling with StandardScaler, EDA, correlation analysis, Logistic Regression training, confusion matrix and ROC-AUC evaluation, and a Streamlit prediction interface using saved model and scaler artifacts.</p>
+        <div class="stats">
+          <div class="stat"><span class="num">4,240</span><span class="cap">dataset records</span></div>
+          <div class="stat"><span class="num">85.4%</span><span class="cap">reported accuracy</span></div>
+          <div class="stat"><span class="num">0.89</span><span class="cap">reported ROC-AUC</span></div>
+        </div>
+        <div class="cta-row" style="margin-top:1.3rem;">
+          <a class="btn ghost" href="https://github.com/arvin1301/Heart-Disease-Prediction-using-Logistic-Regression" target="_blank" rel="noopener">View Heart Disease project on GitHub ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 12. Bitcoin Price Prediction -->
+    <div class="project-row rv">
+      <div class="project-meta">
+        <span class="period mono">Oct 2025 – Apr 2026 Intern</span>
+        <div class="tag-list"><span class="tag">LSTM</span><span class="tag">XGBoost</span><span class="tag">Technical indicators</span></div>
+      </div>
+      <div>
+        <h3>Bitcoin Price Prediction using ML &amp; LSTM</h3>
+        <p>Time-series forecasting pipeline combining historical OHLCV data with SMA, EMA, RSI, and Bollinger Bands. Models include Linear Regression, Random Forest, XGBoost, and an LSTM using 60-step sequences; preprocessing maintains chronological order to reduce leakage, followed by Streamlit visualization and live-data integration.</p>
+        <div class="stats">
+          <div class="stat"><span class="num">R² 0.94</span><span class="cap">reported LSTM score</span></div>
+          <div class="stat"><span class="num">RMSE 176.0</span><span class="cap">reported LSTM error</span></div>
+          <div class="stat"><span class="num">60-step</span><span class="cap">LSTM input window</span></div>
+        </div>
+        <div class="cta-row" style="margin-top:1.3rem;">
+          <a class="btn ghost" href="https://github.com/arvin1301/Bitcoin-Price-Prediction-using-Machine-Learning-and-LSTM" target="_blank" rel="noopener">View Bitcoin project on GitHub ↗</a>
         </div>
       </div>
     </div>
   </section>
 
   <section class="block" id="skills">
-    <div class="block-head"><h2>Skills</h2></div>
+    <div class="block-head rv"><h2>Skills</h2></div>
     <div class="skill-grid">
-      <div class="skill-group">
-        <h3>ML & AI</h3>
+      <div class="skill-group rv">
+        <h3>ML &amp; AI</h3>
         <ul>
           <li>Scikit-learn, XGBoost</li>
           <li>TensorFlow, PyTorch</li>
@@ -489,7 +443,7 @@
           <li>RAG, prompt engineering</li>
         </ul>
       </div>
-      <div class="skill-group">
+      <div class="skill-group rv">
         <h3>Frameworks</h3>
         <ul>
           <li>LangChain, Hugging Face</li>
@@ -498,8 +452,8 @@
           <li>Whisper</li>
         </ul>
       </div>
-      <div class="skill-group">
-        <h3>Data & cloud</h3>
+      <div class="skill-group rv">
+        <h3>Data &amp; cloud</h3>
         <ul>
           <li>PostgreSQL, MySQL</li>
           <li>Qdrant, FAISS</li>
@@ -507,8 +461,8 @@
           <li>Docker, Git, GitHub</li>
         </ul>
       </div>
-      <div class="skill-group">
-        <h3>Analysis & tools</h3>
+      <div class="skill-group rv">
+        <h3>Analysis &amp; tools</h3>
         <ul>
           <li>Pandas, NumPy, Matplotlib</li>
           <li>Power BI, Tableau</li>
@@ -520,21 +474,21 @@
   </section>
 
   <section class="block" id="experience">
-    <div class="block-head"><h2>Experience</h2></div>
+    <div class="block-head rv"><h2>Experience</h2></div>
     <div class="timeline">
-      <div class="tl-item">
+      <div class="tl-item rv">
         <div class="when mono">Oct 2025 – Apr 2026</div>
         <h3>Machine Learning Intern (AI/ML)</h3>
         <div class="org">InLighnX Global Pvt. Ltd.</div>
         <p>Ran full ML workflows from EDA through Streamlit deployment. Shipped forecasting, medical imaging, and computer vision models, plus ANAKIN, a multimodal voice assistant.</p>
       </div>
-      <div class="tl-item">
+      <div class="tl-item rv">
         <div class="when mono">May 2024 – Jun 2024</div>
         <h3>Machine Learning Intern</h3>
         <div class="org">Innodatatics — Text Emotion Analysis using LLM</div>
-        <p>Built an LLM-based emotion classifier across 16 categories with grammar scoring, and a Streamlit + PostgreSQL app that cut manual review time by half.</p>
+        <p>Built an LLM-based emotion classifier across 16 categories with grammar scoring, achieving 45.12 BLEU and 67.35 ROUGE-L. Shipped a Streamlit + PostgreSQL app that cut manual review time by half and improved team efficiency by 20%.</p>
       </div>
-      <div class="tl-item">
+      <div class="tl-item rv">
         <div class="when mono">Sep 2021 – Sep 2023</div>
         <h3>Technical Support Consultant</h3>
         <div class="org">Anjaneya Tech Software Solution</div>
@@ -544,25 +498,19 @@
   </section>
 
   <section class="block" id="education">
-    <div class="block-head"><h2>Education & certifications</h2></div>
+    <div class="block-head rv"><h2>Education &amp; certifications</h2></div>
     <div class="ed-grid">
-      <div>
+      <div class="rv">
         <h3>Education</h3>
         <div class="ed-item">
           <div class="t">Bachelor of Engineering (Mechanical)</div>
           <div class="s">New Horizon College of Engineering, VTU · Aug 2014 – Jun 2021</div>
         </div>
       </div>
-      <div>
+      <div class="rv">
         <h3>Certifications</h3>
-        <div class="ed-item">
-          <div class="t">Google AI Professional Certificate</div>
-          <div class="s">Jul 2026</div>
-        </div>
-        <div class="ed-item">
-          <div class="t">Data Science Certification, NASSCOM</div>
-          <div class="s">Oct 2023</div>
-        </div>
+        <div class="ed-item"><div class="t">Google AI Professional Certificate</div><div class="s">Jul 2026</div></div>
+        <div class="ed-item"><div class="t">Data Science Certification, NASSCOM</div><div class="s">Oct 2023</div></div>
       </div>
     </div>
   </section>
@@ -572,7 +520,7 @@
 <footer id="contact">
   <div class="wrap foot-row">
     <div>
-      <h2 style="font-size:1.3rem; margin-bottom:0.5rem;">Let's work together.</h2>
+      <h2 style="font-size:1.5rem;margin-bottom:.5rem;">Let's <span class="grad">work together.</span></h2>
       <p class="fine">Open to data science and ML/AI roles.</p>
     </div>
     <div class="foot-links">
@@ -584,5 +532,42 @@
   </div>
 </footer>
 
+<script>
+(function(){
+  var d=document,root=d.documentElement,rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  root.classList.add('js');
+
+  // scroll reveal
+  var els=d.querySelectorAll('.rv');
+  if('IntersectionObserver' in window && !rm){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+    els.forEach(function(el,i){el.style.transitionDelay=(i%4)*60+'ms';io.observe(el)});
+  } else els.forEach(function(el){el.classList.add('in')});
+
+  // scroll progress
+  var bar=d.getElementById('bar');
+  function prog(){var h=root.scrollHeight-innerHeight;bar.style.width=(h>0?scrollY/h*100:0)+'%'}
+  addEventListener('scroll',prog,{passive:true});prog();
+
+  // cursor glow + card spotlight
+  var glow=d.querySelector('.glow');
+  addEventListener('pointermove',function(e){glow.style.setProperty('--gx',e.clientX+'px');glow.style.setProperty('--gy',e.clientY+'px')},{passive:true});
+  d.querySelectorAll('.project-row').forEach(function(c){
+    c.addEventListener('pointermove',function(e){var r=c.getBoundingClientRect();c.style.setProperty('--mx',e.clientX-r.left+'px');c.style.setProperty('--my',e.clientY-r.top+'px')});
+  });
+
+  // typed role
+  if(rm) return;
+  var words=['Machine Learning & AI','Computer Vision','NLP & LLM Agents','Time-Series Forecasting'],t=d.getElementById('typed'),w=0,c=words[0].length,del=true;
+  (function tick(){
+    var word=words[w];
+    if(del){c--;if(c<=0){del=false;w=(w+1)%words.length;c=0}}
+    else{c++;if(c>=words[w].length){del=true;t.textContent=words[w];return setTimeout(tick,2200)}}
+    t.textContent=words[w].slice(0,c);
+    setTimeout(tick,del?35:70);
+  })();
+  setTimeout(function(){},0);
+})();
+</script>
 </body>
 </html>
